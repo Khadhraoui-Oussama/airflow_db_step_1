@@ -1,0 +1,24 @@
+{"timestamp":"2025-10-14T21:34:38.532948Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-10-14T21:34:38.534526Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/budget_municipal_etl.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-10-14T21:34:38.550323Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/budget_municipal_etl.py","lineno":9,"logger":"py.warnings"}
+{"timestamp":"2025-10-14T21:34:38.571322Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-10-14T21:34:38.571851Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-10-14T21:34:38.572209Z","level":"info","event":"Current task name:load_data","logger":"task.stdout"}
+{"timestamp":"2025-10-14T21:34:38.572533Z","level":"info","event":"Dag name:budget_municipal_etl","logger":"task.stdout"}
+{"timestamp":"2025-10-14T21:34:38.574130Z","level":"info","event":"Starting data loading to PostgreSQL database","logger":"root","filename":"budget_municipal_etl.py","lineno":259}
+{"timestamp":"2025-10-14T21:34:38.603515Z","level":"info","event":"Loading data from Feuil1 to database","logger":"root","filename":"budget_municipal_etl.py","lineno":278}
+{"timestamp":"2025-10-14T21:34:39.824498Z","level":"info","event":"Inserted 2376 records from Feuil1","logger":"root","filename":"budget_municipal_etl.py","lineno":354}
+{"timestamp":"2025-10-14T21:34:39.847380Z","level":"info","event":"Loading data from Feuil2 to database","logger":"root","filename":"budget_municipal_etl.py","lineno":278}
+{"timestamp":"2025-10-14T21:34:39.872659Z","level":"info","event":"Inserted 5 records from Feuil2","logger":"root","filename":"budget_municipal_etl.py","lineno":354}
+{"timestamp":"2025-10-14T21:34:39.880966Z","level":"info","event":"Loading data from Feuil3 to database","logger":"root","filename":"budget_municipal_etl.py","lineno":278}
+{"timestamp":"2025-10-14T21:34:39.900613Z","level":"info","event":"Inserted 7 records from Feuil3","logger":"root","filename":"budget_municipal_etl.py","lineno":354}
+{"timestamp":"2025-10-14T21:34:39.933401Z","level":"info","event":"Combined dataset saved to /opt/airflow/processed/combined_municipal_budget.csv","logger":"root","filename":"budget_municipal_etl.py","lineno":398}
+{"timestamp":"2025-10-14T21:34:39.941947Z","level":"info","event":"ETL audit record inserted successfully","logger":"root","filename":"budget_municipal_etl.py","lineno":429}
+{"timestamp":"2025-10-14T21:34:39.942220Z","level":"info","event":"Summary report saved to /opt/airflow/processed/budget_summary_report.json","logger":"root","filename":"budget_municipal_etl.py","lineno":433}
+{"timestamp":"2025-10-14T21:34:39.942339Z","level":"info","event":"Total records loaded to database: 2388","logger":"root","filename":"budget_municipal_etl.py","lineno":434}
+{"timestamp":"2025-10-14T21:34:39.962174Z","level":"info","event":"Data loading to PostgreSQL completed successfully","logger":"root","filename":"budget_municipal_etl.py","lineno":439}
+{"timestamp":"2025-10-14T21:34:39.963199Z","level":"info","event":"Done. Returned value was: Loading completed","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":218}
+{"timestamp":"2025-10-14T21:34:39.965482Z","level":"info","event":"Pushing xcom","ti":"RuntimeTaskInstance(id=UUID('0199e4a5-4367-7004-8ddc-e362138a2458'), task_id='load_data', dag_id='budget_municipal_etl', run_id='manual__2025-10-14T21:34:19.984708+00:00', try_number=1, dag_version_id=UUID('0199e44f-048b-7a95-a91d-d4e4adf4012e'), map_index=-1, hostname='0f08597fce01', context_carrier={}, task=<Task(PythonOperator): load_data>, bundle_instance=LocalDagBundle(name=dags-folder), max_tries=1, start_date=datetime.datetime(2025, 10, 14, 21, 34, 37, 849953, tzinfo=datetime.timezone.utc), end_date=None, state=<TaskInstanceState.RUNNING: 'running'>, is_mapped=False, rendered_map_index=None)","logger":"task","filename":"task_runner.py","lineno":1352}
+{"timestamp":"2025-10-14T21:34:40.022449Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-10-14T21:34:40.023071Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-10-14T21:34:40.023661Z","level":"info","event":"Task operator:<Task(PythonOperator): load_data>","logger":"task.stdout"}

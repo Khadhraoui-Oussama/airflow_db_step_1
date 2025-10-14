@@ -174,21 +174,25 @@ def create_database_tables(**context):
         # Create direct PostgreSQL connection using SQLAlchemy
         from sqlalchemy import create_engine, text
         
-        # Use the external PostgreSQL database
-        # Try connecting with postgres user (default superuser)
-        db_url = "postgresql://postgres:@host.docker.internal:5432/postgres"
+        # Use the internal PostgreSQL database from Docker Compose
+        # Connect to the same database Airflow uses
+        db_url = "postgresql://airflow:airflow@postgres:5432/airflow"
         engine = create_engine(db_url)
         
-        logging.info("Connected to PostgreSQL database: airflow")
+        logging.info("Connected to internal PostgreSQL database: airflow")
         
         # SQL to create tables
         create_tables_sql = """
+        -- Create a separate schema for budget data
+        CREATE SCHEMA IF NOT EXISTS budget;
+        
         -- Drop tables if they exist (for development)
-        DROP TABLE IF EXISTS budget_summary CASCADE;
-        DROP TABLE IF EXISTS budget_data CASCADE;
+        DROP TABLE IF EXISTS budget.budget_summary CASCADE;
+        DROP TABLE IF EXISTS budget.budget_data CASCADE;
+        DROP TABLE IF EXISTS budget.etl_audit CASCADE;
         
         -- Main budget data table
-        CREATE TABLE budget_data (
+        CREATE TABLE budget.budget_data (
             id SERIAL PRIMARY KEY,
             sheet_source VARCHAR(255),
             fiscal_year INTEGER,
@@ -204,7 +208,7 @@ def create_database_tables(**context):
         );
         
         -- Summary table for aggregated data
-        CREATE TABLE budget_summary (
+        CREATE TABLE budget.budget_summary (
             id SERIAL PRIMARY KEY,
             sheet_name VARCHAR(255),
             fiscal_year INTEGER,
@@ -218,7 +222,7 @@ def create_database_tables(**context):
         );
         
         -- ETL audit table
-        CREATE TABLE etl_audit (
+        CREATE TABLE budget.etl_audit (
             id SERIAL PRIMARY KEY,
             dag_run_id VARCHAR(255),
             task_id VARCHAR(255),
@@ -230,14 +234,14 @@ def create_database_tables(**context):
         );
         
         -- Create indexes for better performance
-        CREATE INDEX idx_budget_data_sheet_source ON budget_data(sheet_source);
-        CREATE INDEX idx_budget_data_fiscal_year ON budget_data(fiscal_year);
-        CREATE INDEX idx_budget_data_processed_date ON budget_data(processed_date);
-        CREATE INDEX idx_budget_summary_fiscal_year ON budget_summary(fiscal_year);
+        CREATE INDEX idx_budget_data_sheet_source ON budget.budget_data(sheet_source);
+        CREATE INDEX idx_budget_data_fiscal_year ON budget.budget_data(fiscal_year);
+        CREATE INDEX idx_budget_data_processed_date ON budget.budget_data(processed_date);
+        CREATE INDEX idx_budget_summary_fiscal_year ON budget.budget_summary(fiscal_year);
         """
         
         # Execute table creation
-        with engine.connect() as conn:
+        with engine.begin() as conn:
             conn.execute(text(create_tables_sql))
         
         logging.info("Database tables created successfully")
@@ -255,9 +259,13 @@ def load_budget_data(**context):
         logging.info("Starting data loading to PostgreSQL database")
         
         # Create direct PostgreSQL connection
-        from sqlalchemy import create_engine, text
-        db_url = "postgresql://postgres:@host.docker.internal:5432/postgres"
+        from sqlalchemy import create_engine, text, inspect
+        db_url = "postgresql://airflow:airflow@postgres:5432/airflow"
         engine = create_engine(db_url)
+        
+        # Ensure budget schema exists before proceeding
+        with engine.begin() as conn:
+            conn.execute(text("CREATE SCHEMA IF NOT EXISTS budget;"))
         
         # Get transformation metadata
         transformed_data = context['task_instance'].xcom_pull(key='transformed_data', task_ids='transform_data')
@@ -340,7 +348,7 @@ def load_budget_data(**context):
             
             # Insert data into PostgreSQL
             if not db_df.empty:
-                db_df.to_sql('budget_data', engine, if_exists='append', index=False, method='multi')
+                db_df.to_sql('budget_data', engine, schema='budget', if_exists='append', index=False, method='multi')
                 records_inserted = len(db_df)
                 total_records_loaded += records_inserted
                 logging.info(f"Inserted {records_inserted} records from {sheet_name}")
@@ -378,7 +386,7 @@ def load_budget_data(**context):
                 'average_budget_item': sheet_summary['average_budget_item'],
                 'processing_date': datetime.now()
             }])
-            summary_df.to_sql('budget_summary', engine, if_exists='append', index=False)
+            summary_df.to_sql('budget_summary', engine, schema='budget', if_exists='append', index=False)
             
             summary_reports[sheet_name] = sheet_summary
         
@@ -407,10 +415,10 @@ def load_budget_data(**context):
         # Log ETL audit information (optional - don't fail if table doesn't exist)
         try:
             audit_sql = """
-            INSERT INTO etl_audit (dag_run_id, task_id, execution_date, status, records_processed)
+            INSERT INTO budget.etl_audit (dag_run_id, task_id, execution_date, status, records_processed)
             VALUES (:dag_run_id, :task_id, :execution_date, :status, :records_processed)
             """
-            with engine.connect() as conn:
+            with engine.begin() as conn:
                 conn.execute(text(audit_sql), {
                     'dag_run_id': context['dag_run'].dag_id,
                     'task_id': 'load_data',
@@ -436,13 +444,13 @@ def load_budget_data(**context):
         
         # Log error to audit table (optional)
         try:
-            db_url = "postgresql://postgres:@host.docker.internal:5432/postgres"
+            db_url = "postgresql://airflow:airflow@postgres:5432/airflow"
             engine_error = create_engine(db_url)
             audit_sql = """
-            INSERT INTO etl_audit (dag_run_id, task_id, execution_date, status, error_message)
+            INSERT INTO budget.etl_audit (dag_run_id, task_id, execution_date, status, error_message)
             VALUES (:dag_run_id, :task_id, :execution_date, :status, :error_message)
             """
-            with engine_error.connect() as conn:
+            with engine_error.begin() as conn:
                 conn.execute(text(audit_sql), {
                     'dag_run_id': context['dag_run'].dag_id,
                     'task_id': 'load_data',

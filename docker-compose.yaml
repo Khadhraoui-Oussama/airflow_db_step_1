@@ -99,6 +99,8 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -112,8 +114,6 @@ services:
     image: redis:7.2-bookworm
     expose:
       - 6379
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -338,5 +338,19 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    restart: always
+
 volumes:
   postgres-db-volume:
+  pgadmin-data:
