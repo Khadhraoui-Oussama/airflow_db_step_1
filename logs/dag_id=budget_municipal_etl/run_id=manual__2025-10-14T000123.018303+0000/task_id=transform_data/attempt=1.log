@@ -1,0 +1,20 @@
+{"timestamp":"2025-10-14T00:01:29.258556Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-10-14T00:01:29.260426Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/budget_municipal_etl.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-10-14T00:01:29.275711Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/budget_municipal_etl.py","lineno":9,"logger":"py.warnings"}
+{"timestamp":"2025-10-14T00:01:29.296174Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:01:29.296597Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:01:29.296900Z","level":"info","event":"Current task name:transform_data","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:01:29.297098Z","level":"info","event":"Dag name:budget_municipal_etl","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:01:29.298228Z","level":"info","event":"Starting data transformation","logger":"root","filename":"budget_municipal_etl.py","lineno":90}
+{"timestamp":"2025-10-14T00:01:29.310190Z","level":"info","event":"Transforming sheet: Feuil1","logger":"root","filename":"budget_municipal_etl.py","lineno":98}
+{"timestamp":"2025-10-14T00:01:29.334137Z","level":"info","event":"Transformed Feuil1: 264 rows, 16 columns","logger":"root","filename":"budget_municipal_etl.py","lineno":155}
+{"timestamp":"2025-10-14T00:01:29.334444Z","level":"info","event":"Transforming sheet: Feuil2","logger":"root","filename":"budget_municipal_etl.py","lineno":98}
+{"timestamp":"2025-10-14T00:01:29.365290Z","level":"info","event":"Transformed Feuil2: 5 rows, 35 columns","logger":"root","filename":"budget_municipal_etl.py","lineno":155}
+{"timestamp":"2025-10-14T00:01:29.365461Z","level":"info","event":"Transforming sheet: Feuil3","logger":"root","filename":"budget_municipal_etl.py","lineno":98}
+{"timestamp":"2025-10-14T00:01:29.375054Z","level":"info","event":"Transformed Feuil3: 7 rows, 4 columns","logger":"root","filename":"budget_municipal_etl.py","lineno":155}
+{"timestamp":"2025-10-14T00:01:29.389206Z","level":"info","event":"Data transformation completed successfully","logger":"root","filename":"budget_municipal_etl.py","lineno":160}
+{"timestamp":"2025-10-14T00:01:29.389465Z","level":"info","event":"Done. Returned value was: Transformation completed","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":218}
+{"timestamp":"2025-10-14T00:01:29.389707Z","level":"info","event":"Pushing xcom","ti":"RuntimeTaskInstance(id=UUID('0199e005-885f-7e73-bdcd-79261150dc16'), task_id='transform_data', dag_id='budget_municipal_etl', run_id='manual__2025-10-14T00:01:23.018303+00:00', try_number=1, dag_version_id=UUID('0199dff7-e54d-757a-a9d7-739f5be06f20'), map_index=-1, hostname='978bde05ff51', context_carrier={}, task=<Task(PythonOperator): transform_data>, bundle_instance=LocalDagBundle(name=dags-folder), max_tries=1, start_date=datetime.datetime(2025, 10, 14, 0, 1, 28, 726226, tzinfo=datetime.timezone.utc), end_date=None, state=<TaskInstanceState.RUNNING: 'running'>, is_mapped=False, rendered_map_index=None)","logger":"task","filename":"task_runner.py","lineno":1352}
+{"timestamp":"2025-10-14T00:01:29.421549Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:01:29.422080Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:01:29.428385Z","level":"info","event":"Task operator:<Task(PythonOperator): transform_data>","logger":"task.stdout"}

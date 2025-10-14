@@ -1,0 +1,21 @@
+{"timestamp":"2025-10-14T00:13:05.089265Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-10-14T00:13:05.090975Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/budget_municipal_etl.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-10-14T00:13:05.108988Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/budget_municipal_etl.py","lineno":9,"logger":"py.warnings"}
+{"timestamp":"2025-10-14T00:13:05.143188Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:13:05.143624Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:13:05.144141Z","level":"info","event":"Current task name:extract_data","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:13:05.144460Z","level":"info","event":"Dag name:budget_municipal_etl","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:13:05.146030Z","level":"info","event":"Starting data extraction from municipal budget file","logger":"root","filename":"budget_municipal_etl.py","lineno":48}
+{"timestamp":"2025-10-14T00:13:05.435776Z","level":"info","event":"Found 3 sheets in the Excel file","logger":"root","filename":"budget_municipal_etl.py","lineno":57}
+{"timestamp":"2025-10-14T00:13:05.436123Z","level":"info","event":"Sheet 'Feuil1': 264 rows, 13 columns","logger":"root","filename":"budget_municipal_etl.py","lineno":62}
+{"timestamp":"2025-10-14T00:13:05.450886Z","level":"info","event":"Saved sheet 'Feuil1' to /opt/airflow/output/raw_Feuil1.csv","logger":"root","filename":"budget_municipal_etl.py","lineno":72}
+{"timestamp":"2025-10-14T00:13:05.451261Z","level":"info","event":"Sheet 'Feuil2': 5 rows, 35 columns","logger":"root","filename":"budget_municipal_etl.py","lineno":62}
+{"timestamp":"2025-10-14T00:13:05.457346Z","level":"info","event":"Saved sheet 'Feuil2' to /opt/airflow/output/raw_Feuil2.csv","logger":"root","filename":"budget_municipal_etl.py","lineno":72}
+{"timestamp":"2025-10-14T00:13:05.459141Z","level":"info","event":"Sheet 'Feuil3': 7 rows, 1 columns","logger":"root","filename":"budget_municipal_etl.py","lineno":62}
+{"timestamp":"2025-10-14T00:13:05.463958Z","level":"info","event":"Saved sheet 'Feuil3' to /opt/airflow/output/raw_Feuil3.csv","logger":"root","filename":"budget_municipal_etl.py","lineno":72}
+{"timestamp":"2025-10-14T00:13:05.508135Z","level":"info","event":"Data extraction completed successfully","logger":"root","filename":"budget_municipal_etl.py","lineno":78}
+{"timestamp":"2025-10-14T00:13:05.508697Z","level":"info","event":"Done. Returned value was: Extraction completed","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":218}
+{"timestamp":"2025-10-14T00:13:05.509157Z","level":"info","event":"Pushing xcom","ti":"RuntimeTaskInstance(id=UUID('0199e010-30cc-72e8-ad7f-c886ba7cbf3e'), task_id='extract_data', dag_id='budget_municipal_etl', run_id='manual__2025-10-14T00:13:01.490713+00:00', try_number=1, dag_version_id=UUID('0199dff7-e54d-757a-a9d7-739f5be06f20'), map_index=-1, hostname='978bde05ff51', context_carrier={}, task=<Task(PythonOperator): extract_data>, bundle_instance=LocalDagBundle(name=dags-folder), max_tries=1, start_date=datetime.datetime(2025, 10, 14, 0, 13, 4, 503314, tzinfo=datetime.timezone.utc), end_date=None, state=<TaskInstanceState.RUNNING: 'running'>, is_mapped=False, rendered_map_index=None)","logger":"task","filename":"task_runner.py","lineno":1352}
+{"timestamp":"2025-10-14T00:13:05.539298Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:13:05.539740Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-10-14T00:13:05.540138Z","level":"info","event":"Task operator:<Task(PythonOperator): extract_data>","logger":"task.stdout"}

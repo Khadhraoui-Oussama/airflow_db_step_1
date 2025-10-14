@@ -1,0 +1,16 @@
+{
+  "etl_start_time": "2025-10-14T20:45:49.924655",
+  "etl_end_time": "2025-10-14T20:45:58.246041",
+  "status": "SUCCESS",
+  "checks_performed": [
+    "File exists: /opt/airflow/output/raw_Feuil1.csv",
+    "File exists: /opt/airflow/processed/transformed_Feuil1.csv",
+    "File exists: /opt/airflow/output/raw_Feuil2.csv",
+    "File exists: /opt/airflow/processed/transformed_Feuil2.csv",
+    "File exists: /opt/airflow/output/raw_Feuil3.csv",
+    "File exists: /opt/airflow/processed/transformed_Feuil3.csv",
+    "File exists: /opt/airflow/processed/budget_summary_report.json",
+    "Processed 276 records"
+  ],
+  "issues_found": []
+}

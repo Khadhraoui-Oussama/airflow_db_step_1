@@ -1,0 +1,35 @@
+{
+  "processing_date": "2025-10-14T20:45:56.681399",
+  "total_sheets_processed": 3,
+  "total_records_processed": 276,
+  "total_records_loaded_to_db": 2388,
+  "sheets_summary": {
+    "Feuil1": {
+      "sheet_name": "Feuil1",
+      "total_records": 264,
+      "numeric_columns_count": 9,
+      "total_budget_amount": 7816449031.017209,
+      "max_budget_item": 164370004.0,
+      "min_budget_item": 0.108627071607726,
+      "average_budget_item": 3289751.2756806435
+    },
+    "Feuil2": {
+      "sheet_name": "Feuil2",
+      "total_records": 5,
+      "numeric_columns_count": 0,
+      "total_budget_amount": 0.0,
+      "max_budget_item": 0.0,
+      "min_budget_item": 0.0,
+      "average_budget_item": 0.0
+    },
+    "Feuil3": {
+      "sheet_name": "Feuil3",
+      "total_records": 7,
+      "numeric_columns_count": 1,
+      "total_budget_amount": 4.1355,
+      "max_budget_item": 0.716,
+      "min_budget_item": 0.4387,
+      "average_budget_item": 0.5907857142857144
+    }
+  }
+}
